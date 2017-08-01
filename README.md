@@ -36,9 +36,7 @@ flame requires Go(>=1.7.4) and tor.
 
 ## License
 
-Copyright (c) 2017, ak1t0
-
-All rights reserved.
+Copyright (c) 2017, ak1t0 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
