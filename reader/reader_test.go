@@ -6,7 +6,7 @@ import (
 )
 
 func TestReadJson(t *testing.T) {
-	expected := []string{"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.onion", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.onion"}
+	expected := []string{"aaaaaaaaaaaaaaaa.onion", "bbbbbbbbbbbbbbbb.onion"}
 	target := "test.json"
 	actual, _ := ReadJson(target)
 	if !reflect.DeepEqual(expected, actual) {
