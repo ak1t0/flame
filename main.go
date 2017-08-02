@@ -53,7 +53,7 @@ func doScan(c *cli.Context) error {
 		log.Fatal(err)
 	}
 
-	r := crawler.Scan(format.NewOnionLogs(parsed))
+	r := crawler.Crawl(format.NewOnionLogs(parsed))
 
 	log.Println(r)
 

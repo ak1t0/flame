@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func Scan(logs format.OnionLogs) format.OnionLogs {
+func Crawl(logs format.OnionLogs) format.OnionLogs {
 	var scanned format.OnionLogs
 
 	// data channel
