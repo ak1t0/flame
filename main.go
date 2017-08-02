@@ -48,7 +48,11 @@ func doScan(c *cli.Context) error {
 		target = "log.json"
 	}
 
-	parsed := reader.ReadJson(target)
+	parsed, err := reader.ReadJson(target)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	r := crawler.Scan(format.NewOnionLogs(parsed))
 
 	log.Println(r)
