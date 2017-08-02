@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/urfave/cli"
 	"github.com/ak1t0/flame/crawler"
 	"github.com/ak1t0/flame/format"
 	"github.com/ak1t0/flame/reader"
+	"github.com/urfave/cli"
 	"log"
 	"os"
 )
@@ -18,7 +18,7 @@ func main() {
 	app.Version = Version
 	app.Author = "ak1t0"
 	app.Email = "aktoo3097@gmail.com"
-	app.Commands = Commands 
+	app.Commands = Commands
 
 	app.Run(os.Args)
 }
@@ -28,13 +28,13 @@ var Commands = []cli.Command{
 }
 
 var commandScan = cli.Command{
-	Name: "scan",
-	Usage: "Scan onion services",
-	Aliases: []string{"s"}, 
-	Action: doScan,
-	Flags: []cli.Flag {
+	Name:    "scan",
+	Usage:   "Scan onion services",
+	Aliases: []string{"s"},
+	Action:  doScan,
+	Flags: []cli.Flag{
 		cli.StringFlag{
-			Name: "f",
+			Name:  "f",
 			Usage: "Select log file",
 		},
 	},
@@ -50,9 +50,8 @@ func doScan(c *cli.Context) error {
 
 	parsed := reader.ReadJson(target)
 	r := crawler.Scan(format.NewOnionLogs(parsed))
-	
+
 	log.Println(r)
-		
+
 	return nil
 }
-
