@@ -37,6 +37,10 @@ var commandScan = cli.Command{
 			Name:  "f",
 			Usage: "Select log file",
 		},
+		cli.StringFlag{
+			Name:  "o",
+			Usage: "Select output file",
+		},
 	},
 }
 
@@ -55,7 +59,17 @@ func doScan(c *cli.Context) error {
 
 	r := crawler.Crawl(format.NewOnionLogs(parsed))
 
-	log.Println(r)
+	if c.String("o") != "" {
+		f, err := os.OpenFile(c.String("o"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			log.Println(r)
+			log.Fatal(err)
+		}
+		log.SetOutput(f)
+		log.Println(r)
+	} else {
+		log.Println(r)
+	}
 
 	return nil
 }
