@@ -7,6 +7,7 @@ import (
 	"github.com/urfave/cli"
 	"log"
 	"os"
+	"sort"
 )
 
 var Version string = "0.0.1"
@@ -25,6 +26,7 @@ func main() {
 
 var Commands = []cli.Command{
 	commandScan,
+	commandAnalyze,
 }
 
 var commandScan = cli.Command{
@@ -58,6 +60,54 @@ func doScan(c *cli.Context) error {
 	}
 
 	r := crawler.Crawl(format.NewOnionLogs(parsed))
+
+	if c.String("o") != "" {
+		f, err := os.OpenFile(c.String("o"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			log.Println(r)
+			log.Fatal(err)
+		}
+		log.SetOutput(f)
+		log.Println(r)
+	} else {
+		log.Println(r)
+	}
+
+	return nil
+}
+
+var commandAnalyze = cli.Command{
+	Name:    "analyze",
+	Usage:   "Analyze tor-dns log",
+	Aliases: []string{"a"},
+	Action:  doAnalyze,
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "f",
+			Usage: "Select log file",
+		},
+		cli.StringFlag{
+			Name:  "o",
+			Usage: "Select output file",
+		},
+	},
+}
+
+func doAnalyze(c *cli.Context) error {
+	var target string
+	if c.String("f") != "" {
+		target = c.String("f")
+	} else {
+		target = "log.json"
+	}
+
+	parsed, err := reader.ReadJson(target)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r := format.NewOnionLogs(parsed)
+	sort.Sort(r)
 
 	if c.String("o") != "" {
 		f, err := os.OpenFile(c.String("o"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
