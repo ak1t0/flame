@@ -46,3 +46,15 @@ func CountOnionLogs(logs OnionLogs) OnionLogs {
 
 	return l
 }
+
+func (l OnionLogs) Len() int {
+	return len(l)
+}
+
+func (l OnionLogs) Swap(i, j int) {
+	l[i], l[j] = l[j], l[i]
+}
+
+func (l OnionLogs) Less(i, j int) bool {
+	return l[i].Access > l[j].Access
+}
