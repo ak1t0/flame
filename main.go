@@ -54,7 +54,7 @@ func doScan(c *cli.Context) error {
 		target = "log.json"
 	}
 
-	parsed, err := reader.ReadJson(target)
+	parsed, err := reader.ReadData(target)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -101,7 +101,7 @@ func doAnalyze(c *cli.Context) error {
 		target = "log.json"
 	}
 
-	parsed, err := reader.ReadJson(target)
+	parsed, err := reader.ReadData(target)
 	if err != nil {
 		log.Fatal(err)
 	}
