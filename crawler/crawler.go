@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/ak1t0/flame/format"
 	"golang.org/x/net/proxy"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -55,8 +56,7 @@ func scan(target string) string {
 	limit := 30
 
 	go func() {
-		// TODO: save and analyze response data
-		_, err := client.Get("http://" + target)
+		resp, err := client.Get("http://" + target)
 		if err != nil {
 			log.Println(err)
 
@@ -73,7 +73,12 @@ func scan(target string) string {
 				c <- e //"Unknown Error"
 			}
 		}
-		c <- "available"
+		defer resp.Body.Close()
+		contents, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			c <- "available"
+		}
+		c <- string(contents)
 	}()
 
 	select {

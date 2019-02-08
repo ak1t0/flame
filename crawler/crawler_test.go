@@ -7,7 +7,16 @@ import (
 func TestScanAvailable(t *testing.T) {
 	target := "facebookcorewwwi.onion"
 	r := scan(target)
-	if r != "available" {
+	if r == "connection refused" {
+		t.Errorf("TestScanAvailable")
+	}
+	if r == "connection forbidden" {
+		t.Errorf("TestScanAvailable")
+	}
+	if r == "general failure" {
+		t.Errorf("TestScanAvailable")
+	}
+	if r == "TTL expierd" {
 		t.Errorf("TestScanAvailable")
 	}
 }
