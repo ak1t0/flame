@@ -24,6 +24,13 @@ flame requires Go(>=1.7.4) and tor.
 ...
 ```
 
+## Target Text
+```
+facebookcorewwwi.onion
+deepdot35wvmeyd5.onion
+...
+```
+
 ## Output
 ```
 2017/08/01 22:06:02 [{facebookcorewwwi.onion 0 available} {deepdot35wvmeyd5.onion 0 timeout} ...]
