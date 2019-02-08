@@ -57,6 +57,7 @@ func scan(target string) string {
 
 	go func() {
 		resp, err := client.Get("http://" + target)
+
 		if err != nil {
 			log.Println(err)
 
@@ -72,13 +73,16 @@ func scan(target string) string {
 			} else {
 				c <- e //"Unknown Error"
 			}
+
+			return
 		}
-		defer resp.Body.Close()
+
 		contents, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			c <- "available"
 		}
 		c <- string(contents)
+		return
 	}()
 
 	select {
