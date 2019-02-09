@@ -15,7 +15,7 @@ func Crawl(logs format.OnionLogs) format.OnionLogs {
 	var scanned format.OnionLogs
 
 	// data channel
-	c := make(chan format.OnionLog, 3000)
+	c := make(chan format.OnionLog, 6000)
 	// semaphore
 	sem := 10
 	semc := make(chan bool, sem)
