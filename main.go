@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strings"
 )
 
 var Version string = "0.0.2"
@@ -68,7 +69,12 @@ func doScan(c *cli.Context) error {
 			log.Fatal(err)
 		}
 		log.SetOutput(f)
-		log.Println(r)
+
+		for _, v := range r {
+			v.Result = strings.Replace(v.Result, "\n", " ", -1)
+			log.Println(v)
+		}
+
 	} else {
 		log.Println(r)
 	}
